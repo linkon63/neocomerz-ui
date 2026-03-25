@@ -1,0 +1,32 @@
+{
+  "name": "neocomerz-storefront-ui",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --minify --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@puckeditor/core": "^0.21.1",
+    "lucide-react": "latest",
+    "react-icons": "latest"
+  },
+  "peerDependencies": {
+    "next": ">=13",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "tsup": "latest",
+    "typescript": "latest"
+  }
+}
