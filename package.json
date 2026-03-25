@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --minify --clean",
+    "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean",
     "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
     "lint": "eslint src"
   },
