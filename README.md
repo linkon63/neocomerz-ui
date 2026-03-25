@@ -1,11 +1,11 @@
 # NeoComerz Storefront UI
 
-Centralized UI components, Puck configurations, and shared types for the NeoComerz ecosystem.
+Centralized UI components, Puck configurations, and shared types for the NeoComerz ecosystem
 
 ## 🚀 Features
 
-- **Puck Compatible**: Fully integrated configurations for the Puck editor.
-- **Modern UI**: Components built with React, Tailwind CSS, and Lucide Icons.
+- **Puck Compatible**: Fully integrated configurations for the Puck editor
+- **Modern UI**: Components built with React, Tailwind CSS, and Lucide Icons
 - **Type Safe**: Comprehensive TypeScript definitions for all components and props.
 - **Multi-Framework Support**: Bundled in CJS and ESM formats.
 
