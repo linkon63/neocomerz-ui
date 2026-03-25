@@ -55,6 +55,10 @@ export const LayeredHero: ComponentConfig<PuckProps["LayeredHero"]> = {
     showCtaIcon: { label: "Show CTA Icon", type: "radio", options: [{ label: "Yes", value: true }, { label: "No", value: false }] },
   },
   defaultProps: {
+    mainImage: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/fbfb8109-11ba-411a-8db6-5777df7f70b7.webp",
+    logoSrc: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/LOGO/6ac26c0a-0f81-45af-90d2-432a5ec21389.png",
+    overlayImage: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/39bcf414-b4a1-432a-b7e6-526b3a0df138.webp",
+    shadowImage: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/060e816a-0401-443b-8c6e-526b3a0df138.webp",
     logoAlt: "Logo image",
     watermarkText: "Shirt",
     titlePrimary: "এই শীতের",

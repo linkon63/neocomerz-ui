@@ -1,85 +1,67 @@
 import React from "react";
 import { ComponentConfig } from "@puckeditor/core";
 import { PuckProps } from "../types/puck";
-import FeaturesUI from "../ui/Features";
 import { ImageUpload } from "../ui/ImageUpload";
-
-const DEFAULT_CTA_TEXT = "এখনই অর্ডার করুন";
-const DEFAULT_CTA_HREF = "#order-form";
-const DEFAULT_TAGLINE = "এটা শুধু একটা ড্রেস না—এটা এখনকার ফ্যাশন ট্রেন্ডের অংশ।";
-
-const withFallbackText = (value: string | undefined, fallback: string) => {
-    if (typeof value !== "string") return fallback;
-    return value.trim().length > 0 ? value : fallback;
-};
+import FeaturesUI from "../ui/Features";
 
 export const Features: ComponentConfig<PuckProps["Features"]> = {
   fields: {
-    title: { type: "text", label: "TITLE" },
-    description: { type: "textarea", label: "DESCRIPTION" },
+    title: { type: "text" },
+    description: { type: "textarea" },
+    tagline: { type: "text" },
     features: {
       type: "array",
-      label: "FEATURES",
       getItemSummary: (item) => item.text || "Feature",
       arrayFields: {
-        text: { type: "text", label: "TEXT" },
+        text: { type: "text" },
       },
     },
     images: {
       type: "array",
-      label: "IMAGES",
-      getItemSummary: (item, index) => item.alt || `Image ${(index || 0) + 1}`,
+      getItemSummary: (item) => item.alt || "Image",
       arrayFields: {
         src: {
           type: "custom",
-          label: "SRC",
           render: ({ value, onChange }) => (
             <ImageUpload value={value} onChange={onChange} />
           ),
         },
-        alt: { type: "text", label: "ALT" },
+        alt: { type: "text" },
       },
     },
-    ctaText: { type: "text", label: "CTA TEXT" },
-    ctaHref: { type: "text", label: "CTA HREF" },
-    tagline: { type: "text", label: "TAGLINE" },
-    whatsappNumber: { type: "text", label: "WHATSAPP NUMBER" },
-    primaryColor: { type: "text", label: "PRIMARY COLOR" },
-    textColor: { type: "text", label: "TEXT COLOR" },
-    backgroundColor: { type: "text", label: "BACKGROUND COLOR" },
+    ctaText: { type: "text" },
+    ctaHref: { type: "text" },
+    primaryColor: { type: "text" },
+    textColor: { type: "text" },
+    backgroundColor: { type: "text" },
+    whatsappNumber: { type: "text" },
   },
-    defaultProps: {
-        title: "কেন এটা আলাদা করে নজর কাড়ে",
-        description: "শুধু সুন্দর নয়, আরামদায়কও। আমাদের প্রিমিয়াম কোয়ালিটির Quality Panjabi সেট আপনাকে দেবে এক অনন্য অভিজ্ঞতা। প্রতিটি স্টিচে রয়েছে আমাদের নিখুঁত কারুকার্য।",
-        features: [
-            { text: "Quality runway-inspired design" },
-            { text: "Elegant cut & premium fall — ছবি আর বাস্তবে এক" },
-            { text: "Daily wear থেকে occasion—দুই জায়গাতেই মানানসই" },
-            { text: "বাংলাদেশি আবহাওয়ার জন্য comfortable fabric choice" },
-        ],
-        ctaText: DEFAULT_CTA_TEXT,
-        ctaHref: DEFAULT_CTA_HREF,
-        tagline: DEFAULT_TAGLINE,
-        whatsappNumber: "+880 1712-508063",
-        backgroundColor: "#ffffff",
-    },
+  defaultProps: {
+    title: "কেন আমাদের পাঞ্জাবি সেরা?",
+    description: "আমাদের পাঞ্জাবিগুলো উন্নতমানের ফেব্রিক এবং নিখুঁত সেলাই দিয়ে তৈরি।",
+    tagline: "এটা শুধু একটা ড্রেস না—এটা এখনকার ফ্যাশন ট্রেনের অংশ।",
+    features: [
+      { text: "100% Cotton Premium Fabric" },
+      { text: "Exclusive Embroidery Work" },
+      { text: "Hand-Crafted Details" },
+      { text: "Perfect Fit for Every Occasion" },
+    ],
+    images: [
+      { src: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/060e816a-0401-443b-8c6e-526b3a0df138.webp", alt: "Feature 1" },
+      { src: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/39bcf414-b4a1-432a-b7e6-526b3a0df138.webp", alt: "Feature 2" },
+    ],
+    ctaText: "এখনই অর্ডার করুন",
+    ctaHref: "#order",
+    primaryColor: "#F36621",
+    textColor: "#222F28",
+    backgroundColor: "#ffffff",
+    whatsappNumber: "+880 1712-508063",
+  },
   render: (props) => (
     <FeaturesUI
-      title={props.title}
-      description={props.description}
-      features={props.features || []}
-      images={props.images && props.images.length > 0 ? props.images.map(img => ({ src: img.src || "", alt: img.alt || "" })) : undefined}
-      ctaButton={{
-        text: withFallbackText(props.ctaText, DEFAULT_CTA_TEXT),
-        href: withFallbackText(props.ctaHref, DEFAULT_CTA_HREF)
-      }}
-      tagline={withFallbackText(props.tagline, DEFAULT_TAGLINE)}
-      whatsappNumber={props.whatsappNumber}
-      colors={{
-        primary: props.primaryColor,
-        text: props.textColor,
-        background: props.backgroundColor
-      }}
+      {...props}
+      ctaButton={{ text: props.ctaText || "", href: props.ctaHref || "" }}
+      colors={{ primary: props.primaryColor, text: props.textColor, background: props.backgroundColor }}
     />
   ),
 };

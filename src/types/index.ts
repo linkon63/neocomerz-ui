@@ -100,7 +100,7 @@ export interface FeatureItem {
 
 export interface FeatureImage {
   src: string;
-  alt: string;
+  alt?: string;
 }
 
 export interface FeaturesProps {

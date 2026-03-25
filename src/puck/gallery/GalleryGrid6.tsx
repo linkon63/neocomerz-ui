@@ -30,9 +30,13 @@ export const GalleryGrid6: ComponentConfig<PuckProps["GalleryGrid6"]> = {
     },
   },
   defaultProps: {
-    title: "Premium Collection",
-    description: "A specialized 6-pack grid for your finest products.",
-    images: [],
+    title: "Premium Showcase",
+    description: "Our finest selection of handcrafted products.",
+    images: [
+      { src: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/16d78109-11ba-411a-8db6-5777df7f70b7.webp", alt: "Showcase 1" },
+      { src: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/060e816a-0401-443b-8c6e-526b3a0df138.webp", alt: "Showcase 2" },
+      { src: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/39bcf414-b4a1-432a-b7e6-526b3a0df138.webp", alt: "Showcase 3" },
+    ],
   },
   render: (props: any) => {
     return <GalleryGrid6UI {...props} />;

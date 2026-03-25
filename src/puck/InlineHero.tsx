@@ -32,8 +32,9 @@ export const InlineHero: ComponentConfig<PuckProps["InlineHero"]> = {
         textColor: { label: "Description Text Color", type: "text" },
     },
     defaultProps: {
-        backgroundImageAlt: "Pakistani Dress Collection Background",
-        logoAlt: "NeoComerz Logo",
+    logoSrc: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/LOGO/6ac26c0a-0f81-45af-90d2-432a5ec21389.png",
+    backgroundImage: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/16d78109-11ba-411a-8db6-5777df7f70b7.webp",
+    logoAlt: "NeoComerz Logo",
         titlePrimary: "প্রিমিয়াম",
         titleSecondary: "Pakistani Dress",
         description: "সেই ডিজাইন—যেটা পরলে আলাদা করে কিছু বলার দরকার পড়ে না. ফ্যাশন-লাভারদের নতুন obsession",

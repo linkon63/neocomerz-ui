@@ -30,9 +30,12 @@ export const GalleryCol: ComponentConfig<PuckProps["GalleryCol"]> = {
     },
   },
   defaultProps: {
-    title: "Our Product Gallery",
-    description: "Check out our latest collection and high-quality product images.",
-    images: [],
+    title: "New Arrivals",
+    description: "Discover our latest premium products.",
+    images: [
+      { src: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/16d78109-11ba-411a-8db6-5777df7f70b7.webp", alt: "Arrival 1" },
+      { src: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/060e816a-0401-443b-8c6e-526b3a0df138.webp", alt: "Arrival 2" },
+    ],
   },
   render: (props: any) => {
     return <GalleryColUI {...props} />;

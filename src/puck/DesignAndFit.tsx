@@ -51,7 +51,20 @@ export const DesignAndFit: ComponentConfig<PuckProps["DesignAndFit"]> = {
   defaultProps: {
     title: "ইন্ডিয়ান এমব্রয়ডারি,",
     subtitle: "পাঞ্জাবি সাশ্রয় দামে - আজকের সেরা ডিল",
-    imageCards: [],
+    imageCards: [
+      {
+        image: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/060e816a-0401-443b-8c6e-526b3a0df138.webp",
+        title: "Premium Design",
+        description: "Classic Indian embroidery craftsmanship.",
+        alt: "Main Design Image"
+      },
+      {
+        image: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/39bcf414-b4a1-432a-b7e6-526b3a0df138.webp",
+        title: "Elegant Fit",
+        description: "Tailored for comfort and style.",
+        alt: "Overlay Design Image"
+      }
+    ],
     detailCards: [
       {
         title: "Design & Cut",

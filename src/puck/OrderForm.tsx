@@ -205,6 +205,7 @@ export const OrderForm: ComponentConfig<PuckProps["OrderForm"]> = {
     title: "Stock সীমিত – আজই অর্ডার করুন!",
     description: "অর্ডার করতে নীচের ফর্মটি পূরণ করুন এবং অর্ডার করুন বাটনে ক্লিক করুন!",
     submitButtonText: "অর্ডার কনফার্ম করুন",
+    productImage: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/16d78109-11ba-411a-8db6-5777df7f70b7.webp",
     productImageAlt: "Premium Quality Panjabi",
     productName: "প্রিমিয়াম Quality Panjabi",
     productPrice: "৳1499",

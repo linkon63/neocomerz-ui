@@ -60,6 +60,8 @@ export const Hero: ComponentConfig<PuckProps["Hero"]> = {
     discountTag: "UP TO 50% OFF",
     ctaText: "SHOP NOW",
     ctaHref: "#",
+    logoSrc: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/LOGO/6ac26c0a-0f81-45af-90d2-432a5ec21389.png",
+    backgroundImage: "https://hishabi-dev.s3.ap-south-1.amazonaws.com/RETAIL/6786196238dfda001229497e/BANNER/060e816a-0401-443b-8c6e-526b3a0df138.webp",
     logoAlt: "Logo",
     logoWidth: 150,
     logoHeight: 50,
