@@ -1,4 +1,9 @@
-import React from "react";
+import img1 from "./images/products/product1.webp";
+import img2 from "./images/products/product2.webp";
+import img3 from "./images/products/product3.webp";
+import img4 from "./images/products/product4.webp";
+import img5 from "./images/products/product5.webp";
+
 
 export interface GalleryGrid6Props {
   title?: string;
@@ -9,7 +14,14 @@ export interface GalleryGrid6Props {
 export default function GalleryGrid6({
   title = "Premium Collection",
   description = "A specialized 6-pack grid for your finest products.",
-  images = [],
+  images = [
+    { src: img1.src, alt: "Featured" },
+    { src: img2.src, alt: "Product 1" },
+    { src: img3.src, alt: "Product 2" },
+    { src: img4.src, alt: "Product 3" },
+    { src: img5.src, alt: "Product 4" },
+    { src: img1.src, alt: "Product 5" },
+  ],
 }: GalleryGrid6Props) {
   const imagesToDisplay = images.slice(0, 6);
   const count = imagesToDisplay.length;
@@ -38,6 +50,7 @@ export default function GalleryGrid6({
           "md:grid-cols-3"
         } gap-2 md:gap-3`}>
           {imagesToDisplay.map((image, index) => {
+            // Featured logic: First image is 2x2 if we have 4 or more images
             const isFeatured = index === 0 && count >= 4;
             
             return (

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { HelplineProps } from '../types';
 
 const WhatsAppIcon = () => (
     <svg
@@ -38,6 +37,10 @@ const WhatsAppIcon = () => (
         </defs>
     </svg>
 );
+
+export interface HelplineProps {
+    whatsappNumber?: string;
+}
 
 export default function Helpline({ whatsappNumber = "+880 1712-508063" }: HelplineProps) {
     const formattedNumber = whatsappNumber.replace(/[^0-9+]/g, '');

@@ -1,6 +1,21 @@
 {
   "name": "neocomerz-storefront-ui",
   "version": "1.0.3",
+  "description": "Premium UI components for NeoComerz storefronts",
+  "author": "NeoComerz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neocomerz/neocomerz-ui"
+  },
+  "keywords": [
+    "react",
+    "nextjs",
+    "ui",
+    "components",
+    "storefront",
+    "neocomerz"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -9,11 +24,11 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean",
-    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
+    "dev": "next dev preview",
+    "dev:lib": "tsup src/index.ts --format cjs,esm --watch --dts",
     "lint": "eslint src"
   },
   "dependencies": {
-    "@puckeditor/core": "^0.21.1",
     "lucide-react": "latest",
     "react-icons": "latest"
   },
@@ -23,9 +38,16 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@types/node": "^25.5.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "@tailwindcss/postcss": "latest",
+    "autoprefixer": "^10.4.17",
+    "next": "16.2.1",
+    "postcss": "^8.4.35",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "tailwindcss": "latest",
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "tsup": "latest",
     "typescript": "latest"
   }

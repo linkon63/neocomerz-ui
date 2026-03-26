@@ -1,4 +1,9 @@
-import React from "react";
+import img1 from "./images/products/product1.webp";
+import img2 from "./images/products/product2.webp";
+import img3 from "./images/products/product3.webp";
+import img4 from "./images/products/product4.webp";
+import img5 from "./images/products/product5.webp";
+
 
 export interface GalleryGridProps {
   title?: string;
@@ -9,7 +14,13 @@ export interface GalleryGridProps {
 export default function GalleryGrid({
   title = "Curated Collection",
   description = "Explore our visually stunning grid of premium products and lifestyle shots.",
-  images = [],
+  images = [
+    { src: img1.src, alt: "Featured" },
+    { src: img2.src, alt: "Product 1" },
+    { src: img3.src, alt: "Product 2" },
+    { src: img4.src, alt: "Product 3" },
+    { src: img5.src, alt: "Product 4" },
+  ],
 }: GalleryGridProps) {
   return (
     <section className="py-20 bg-gray-50/50">
@@ -36,6 +47,7 @@ export default function GalleryGrid({
           "md:grid-cols-4"
         } gap-4 min-h-[200px]`}>
           {images.slice(0, 9).map((image, index) => {
+            // Featured logic (2x2) only applies if we have at least 4 images and this is the first one
             const isFeatured = index === 0 && images.length >= 4;
             
             return (

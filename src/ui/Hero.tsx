@@ -1,11 +1,19 @@
 import React from "react";
 import Image from "next/image";
-import { HeroProps } from "../types";
-import PrimaryButton from "./Button";
+import { HeroProps } from "./types";
+import { PrimaryButton } from "./Button";
+
+import logoDefault from "./images/neoComerz-logo.svg";
+import bgDefault from "./images/heroBg.jpg";
 
 export default function Hero({
-  backgroundImage,
-  logo,
+  backgroundImage = bgDefault.src,
+  logo = {
+    src: logoDefault.src,
+    alt: "Logo",
+    width: 150,
+    height: 50,
+  },
   title = "👑 STYLISH & COMFORTABLE",
   titleSize,
   subtitle = "✨ LUXURY SUMMER COLLECTION",
@@ -32,7 +40,7 @@ export default function Hero({
   const { primaryColor = "#F36621", textColor = "#222F28" } = theme;
 
   const {
-    src: finalLogoSrc,
+    src: finalLogoSrc = logoDefault.src,
     alt: finalLogoAlt = "Logo",
     width: finalLogoWidth = 150,
     height: finalLogoHeight = 50,
@@ -56,6 +64,7 @@ export default function Hero({
     right: "text-right items-end",
   };
 
+  // Defensive checks for legacy data structures
   const displayTitle = typeof title === 'object' ? (title as any).main : title;
   const displaySubtitle = typeof subtitle === 'object' ? (subtitle as any).subtitle : subtitle;
   const displayDiscount = typeof discountTag === 'object' ? (discountTag as any).discount : discountTag;
@@ -65,6 +74,7 @@ export default function Hero({
       className="relative w-full h-screen bg-cover bg-center bg-no-repeat overflow-hidden"
       style={backgroundImage ? { backgroundImage: `url('${backgroundImage}')` } : { backgroundColor: "#f3f4f6" }}
     >
+      {/* Overlay */}
       <div 
         className="absolute inset-0" 
         style={{ 

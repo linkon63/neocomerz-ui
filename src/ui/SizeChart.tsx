@@ -25,7 +25,7 @@ interface SizeChartUIProps {
   };
 }
 
-export default function SizeChart({
+export default function SizeChartUI({
   title,
   description,
   sizeData = [],
@@ -39,10 +39,12 @@ export default function SizeChart({
 }: SizeChartUIProps) {
   const primaryColor = colors.primary || '#10b981';
   const textColor = colors.text || '#27272a';
+  const backgroundColor = colors.background || '#ffffff';
 
   return (
     <section className="bg-white py-24">
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col justify-start items-center gap-8 lg:gap-16">
+        {/* Section Header */}
         <div className="text-center mb-0">
           <h1 
             className="text-zinc-800 text-4xl md:text-5xl lg:text-6xl font-bold leading-tight lg:leading-[64px] text-center"
@@ -56,6 +58,7 @@ export default function SizeChart({
         </div>
 
         <div className="self-stretch grid lg:grid-cols-3 gap-8 items-center">
+          {/* Size Table */}
           <div className="lg:col-span-2 rounded-2xl border border-zinc-200 overflow-hidden bg-white">
             <div className="overflow-x-auto pb-2">
               <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] min-w-[600px]">
@@ -90,11 +93,12 @@ export default function SizeChart({
             </div>
           </div>
 
+          {/* Chart Image */}
           <div className="lg:col-span-1 bg-gray-100 rounded-2xl flex items-center justify-center p-8 h-full min-h-[300px]">
             {chartImage ? (
               <img
                 src={chartImage}
-                alt={chartImageAlt || "Measurement guide"}
+                alt={chartImageAlt || "Sweatshirt measurement guide"}
                 className="max-w-full h-auto object-contain max-h-[400px]"
               />
             ) : (
@@ -106,6 +110,7 @@ export default function SizeChart({
           </div>
         </div>
 
+        {/* Return Policy & Contact */}
         <div 
           className="self-stretch p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8"
           style={{ backgroundColor: primaryColor }}

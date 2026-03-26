@@ -1,7 +1,7 @@
 import React from 'react';
-import { ButtonProps } from '../types';
+import { ButtonProps } from './types';
 
-function PrimaryButton({
+export function PrimaryButton({
   children,
   icon,
   href,
@@ -46,5 +46,3 @@ function PrimaryButton({
     </button>
   );
 }
-
-export default PrimaryButton;

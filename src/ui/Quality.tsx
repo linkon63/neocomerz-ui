@@ -25,7 +25,7 @@ interface QualityUIProps {
   };
 }
 
-export default function Quality({
+export default function QualityUI({
   title,
   subtitle,
   imageCards = [],
@@ -35,28 +35,35 @@ export default function Quality({
 }: QualityUIProps) {
   const primaryColor = colors.primary || '#F36621';
   const textColor = colors.text || '#27272a';
+  const backgroundColor = colors.background || '#f3f4f6';
 
-  const CheckListItem: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <li className="flex items-start gap-2">
-      <BsCheckCircleFill className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-      <span className="text-gray-700 leading-relaxed">{children}</span>
-    </li>
-  );
+  function CheckListItem({ children }: { children: React.ReactNode }) {
+    return (
+      <li className="flex items-start gap-2">
+        <BsCheckCircleFill className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+        <span className="text-gray-700 leading-relaxed">{children}</span>
+      </li>
+    );
+  }
 
-  const PrimaryButton: React.FC<{ href?: string; children: React.ReactNode }> = ({ href, children }) => (
-    <a
-      href={href || '#'}
-      className="inline-block px-8 py-4 text-white font-bold rounded-lg transition-all hover:opacity-90 shadow-lg"
-      style={{ backgroundColor: primaryColor }}
-    >
-      {children}
-    </a>
-  );
+  function PrimaryButton({ href, children }: { href?: string; children: React.ReactNode }) {
+    return (
+      <a
+        href={href || '#'}
+        className="inline-block px-8 py-4 text-white font-bold rounded-lg transition-all hover:opacity-90 shadow-lg"
+        style={{ backgroundColor: primaryColor }}
+      >
+        {children}
+      </a>
+    );
+  }
 
   return (
     <main>
+      {/* Image Cards Section */}
       <section className="pt-24" style={{ backgroundColor: '#f3f4f6' }}>
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+          {/* Section Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4" style={{ color: textColor }}>
               {title && <span>{title}</span>}
@@ -68,6 +75,7 @@ export default function Quality({
             </h1>
           </div>
 
+          {/* Image Cards Grid */}
           <div className="grid md:grid-cols-3 gap-4">
             {imageCards.map((card, index) => (
               <div
@@ -94,6 +102,7 @@ export default function Quality({
         </div>
       </section>
 
+      {/* Detail Cards Section */}
       <section className="bg-white pt-24 pb-16">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
           <div className="grid md:grid-cols-3 gap-4">
@@ -115,6 +124,7 @@ export default function Quality({
             ))}
           </div>
 
+          {/* CTA Section */}
           <div className="mt-16 flex justify-center items-start flex-wrap gap-4">
             {ctaButton && (
               <PrimaryButton href={ctaButton.href}>

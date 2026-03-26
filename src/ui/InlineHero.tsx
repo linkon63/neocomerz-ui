@@ -1,11 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
-import { InlineHeroProps } from '../types';
+import Link from 'next/link';
+import { InlineHeroProps } from './types';
+
+import inlineHeroBgDefault from './images/hero-3/hero-bg.webp';
+import inlineHeroLogoDefault from './images/hero-3/Logo.svg';
 
 export default function InlineHero({
-    backgroundImage,
+    backgroundImage = inlineHeroBgDefault.src,
     backgroundImageAlt = 'Pakistani Dress Collection Background',
-    logoSrc,
+    logoSrc = inlineHeroLogoDefault.src,
     logoAlt = 'NeoComerz Logo',
     logoWidth = 200,
     logoHeight = 60,
@@ -24,6 +28,7 @@ export default function InlineHero({
 
     return (
         <section className="relative w-full">
+            {/* Background Image Container */}
             <div className="image-container absolute inset-0 z-0 h-full w-full">
                 {backgroundImage && (
                     <Image
@@ -32,12 +37,14 @@ export default function InlineHero({
                         fill
                         className="object-cover object-center hero-bg-mobile"
                         priority
+                        quality={90}
                     />
                 )}
             </div>
 
             <div className="relative z-10 container mx-auto max-w-[1440px] flex">
                 <div className="w-full max-w-[720px] px-4 sm:px-8 pt-6 sm:pt-12 md:pt-16 pb-12 sm:pb-24 md:pb-32 flex flex-col justify-start items-start gap-6 sm:gap-12 md:gap-16">
+
                     <div className="flex justify-start items-center mb-12 sm:mb-20 md:mb-32">
                         {logoSrc && (
                             <Image
@@ -71,16 +78,19 @@ export default function InlineHero({
                             style={{ color: textColor }}
                         >
                             {description}{' '}
+                            <br className="hidden sm:block" />{' '}
                         </div>
 
                         {ctaText && ctaHref && (
-                            <a
+                            <Link
                                 href={ctaHref}
                                 className="px-6 py-3 sm:px-8 sm:py-4 text-white text-base sm:text-lg lg:text-xl font-bold rounded-lg transition-colors shadow-lg"
                                 style={{ backgroundColor: secondaryColor }}
+                                onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+                                onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
                             >
                                 {ctaText}
-                            </a>
+                            </Link>
                         )}
                     </div>
                 </div>

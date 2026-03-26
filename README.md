@@ -1,84 +1,91 @@
 # NeoComerz Storefront UI
 
-Centralized UI components, Puck configurations, and shared types for the NeoComerz ecosystem
+Premium, high-performance UI components for NeoComerz storefronts. Built with React and optimized for Next.js.
 
-## 🚀 Features
+## Features
 
-- **Puck Compatible**: Fully integrated configurations for the Puck editor
-- **Modern UI**: Components built with React, Tailwind CSS, and Lucide Icons
-- **Type Safe**: Comprehensive TypeScript definitions for all components and props.
-- **Multi-Framework Support**: Bundled in CJS and ESM formats.
+- 🚀 **Next.js Optimized**: Built-in support for Next.js Image and Link.
+- 🎨 **Fully Customizable**: Themeable components with primary/secondary colors.
+- 📱 **Responsive Design**: Mobile-first approach for all components.
+- 📦 **Tree-Shakable**: ESM support for minimal bundle sizes.
+- 🛠️ **Puck Editor Ready**: Includes configurations for Puck CMS.
 
-## 📦 Installation
+## Installation
 
 ```bash
 npm install neocomerz-storefront-ui
 # or
+yarn add neocomerz-storefront-ui
+# or
 pnpm add neocomerz-storefront-ui
 ```
 
-## 🛠️ Usage
+### Peer Dependencies
 
-### 1. In Page Builder (Puck Config)
+Ensure you have the following installed:
 
-```tsx
-import { Config } from "@puckeditor/core";
-import { PuckProps, RootProps, Hero, OrderForm } from "neocomerz-storefront-ui";
-
-export const config: Config<PuckProps, RootProps> = {
-  components: {
-    Hero,
-    OrderForm,
-    // Add other components...
-  },
-  // ... rest of config
-};
+```bash
+npm install react react-dom next react-icons lucide-react
 ```
 
-### 2. In Storefront (Renderer)
+## Usage
 
 ```tsx
-import { Render } from "@puckeditor/core";
-import { config } from "./puck.config";
+import { Hero, PrimaryButton } from 'neocomerz-storefront-ui';
 
-export function LandingPage({ data }) {
-  return <Render config={config} data={data} />;
+export default function Home() {
+  return (
+    <main>
+      <Hero 
+        title="Elevate Your Style"
+        subtitle="Exclusive Summer Collection"
+        primaryColor="#F36621"
+      />
+      <PrimaryButton href="/shop">Shop Now</PrimaryButton>
+    </main>
+  );
 }
 ```
 
-## 💻 Local Development
+## Available Components
 
-If you want to modify the library and see changes in real-time in your app:
+### Heroes
+- `Hero`: Classic large hero section with overlay and call to action.
+- `LayeredHeroUI`: Elegant hero with multiple image layers and watermark.
+- `InlineHeroUI`: Minimal industrial-style hero with background image.
 
-### 1. In the `neocomerz-ui` directory:
+### Galleries
+- `GalleryGridUI`: Feature-rich grid for product showcasing.
+- `GalleryGrid6UI`: Specialized 6-item grid layout.
+- `GalleryColUI`: Simple column-based gallery.
+
+### Commerce
+- `OrderFormUI`: Full-featured product order form with variant selection and billing.
+- `PriceChartUI`: Dynamic price and size comparison table.
+
+### Feedback & Info
+- `TestimonialsUI`: Customer feedback section with image grid.
+- `FAQUI`: Interactive accordion-style FAQ.
+- `QualityUI`: Trust-building section highlighting product features.
+- `Helpline`: Quick WhatsApp support button.
+
+### Utilities
+- `SectionHeader`: Standardized header for page sections.
+- `CheckListItem`: Reusable list item with green check icon.
+- `PrimaryButton`: Versatile button component with multiple variants.
+
+## Development
+
+To start the development server:
 ```bash
-# Install dependencies
-pnpm install
-
-# Build the package
-npm run build
-
-# Or run in watch mode
 npm run dev
 ```
 
-### 2. Linking the package locally (Optional):
-To use the local version of this package in another project without publishing:
+To build for production:
 ```bash
-# Inside neocomerz-ui folder
-pnpm link --global
-
-# Inside your app folder (e.g., pagebuilder-nc)
-pnpm link --global neocomerz-storefront-ui
+npm run build
 ```
 
-## 🏗️ Project Structure
+## License
 
-- `src/ui`: Core UI components (Raw React components).
-- `src/puck`: Puck editor configurations for the UI components.
-- `src/types`: Shared TypeScript interfaces and types.
-- `dist`: Compiled production-ready files (generated after build).
-
-## 📄 License
-
-MIT © [linkon63](https://github.com/linkon63)
+MIT © NeoComerz

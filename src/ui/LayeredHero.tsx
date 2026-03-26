@@ -1,14 +1,25 @@
 import React from "react";
 import Image from "next/image";
-import { LayeredHeroProps } from "../types";
+import Link from "next/link";
+import { LayeredHeroProps } from "./types";
+
+import layeredHeroMainDefault from './images/hero-2/hero-main.webp';
+import layeredHeroOverlayDefault from './images/hero-2/hero-overlay.webp';
+import layeredHeroShadowDefault from './images/hero-2/left-shadow.webp';
+import layeredHeroLogoDefault from './images/hero-3/Logo.svg';
 
 export default function LayeredHero({
-  logo,
-  mainImage,
+  logo = {
+    src: layeredHeroLogoDefault.src,
+    alt: "Logo image",
+    width: 230,
+    height: 60,
+  },
+  mainImage = layeredHeroMainDefault.src,
   mainImageAlt = "Collection Models",
-  overlayImage,
+  overlayImage = layeredHeroOverlayDefault.src,
   overlayImageAlt = "Featured Product",
-  shadowImage,
+  shadowImage = layeredHeroShadowDefault.src,
   shadowImageAlt = "Decorative shadow",
   watermarkText = "Shirt",
   titlePrimary = "🌟 এই শীতের",
@@ -38,7 +49,7 @@ export default function LayeredHero({
   const { primaryColor = "#FBBF24", textColor = "#222F28", descriptionColor = "#6B6B6B" } = theme;
 
   const {
-    src: finalLogoSrc,
+    src: finalLogoSrc = layeredHeroLogoDefault.src,
     alt: finalLogoAlt = "Logo image",
     width: finalLogoWidth = 230,
     height: finalLogoHeight = 60,
@@ -46,6 +57,7 @@ export default function LayeredHero({
 
   return (
     <section className="relative w-full flex flex-col-reverse lg:flex-row bg-white px-4 m-0 p-0">
+
       <div className="hidden xl:block absolute top-8 left-6 lg:left-24 lg:top-6 z-20 mb-20">
         <div className="logo relative w-[230px] h-20">
           {finalLogoSrc && (
@@ -71,6 +83,7 @@ export default function LayeredHero({
       )}
 
       <div className="relative w-full lg:w-[60%] flex flex-col xl:mt-10 2xl:pl-[13%] justify-center px-4 sm:px-8 lg:px-24 py-14 overflow-hidden pl-[5%]">
+
         {showWatermark && watermarkText && (
           <div className="absolute right-46 top-1/2 -translate-y-1/2 translate-x-[35%] pointer-events-none select-none z-0 hidden lg:block">
             <span
@@ -84,6 +97,7 @@ export default function LayeredHero({
 
         <div className="relative z-10 w-full lg:max-w-xl text-center lg:text-left">
           <div className="self-stretch inline-flex flex-col justify-center items-center lg:items-start lg:justify-start gap-6">
+
             <div className="z-20 block xl:hidden mb-20 lg:mb-16 relative w-[230px] h-[60px]">
               <div className="logo">
                 {finalLogoSrc && (
@@ -93,11 +107,13 @@ export default function LayeredHero({
                     width={finalLogoWidth}
                     height={finalLogoHeight}
                     className="h-auto"
+                    loading="lazy"
                   />
                 )}
               </div>
             </div>
 
+            {/* Title Section */}
             <div className="self-stretch justify-start">
               <span
                 className="text-3xl sm:text-4xl xl:text-6xl font-bold font-['Hind_Siliguri'] leading-snug lg:leading-[74px]"
@@ -120,18 +136,23 @@ export default function LayeredHero({
               {description}
             </div>
 
+
             <p
               className='font-bold text-lg lg:text-2xl'
               style={{ color: textColor }}
             >
               {productName} - <span className="text-red-500 text-md lg:text-base line-through">{originalPrice}</span> <span style={{ color: primaryColor }}>{discountPrice}</span> {priceSuffix}
             </p>
+
           </div>
 
-          <a
+          {/* Button */}
+          <Link
             href={cta?.href || "#order"}
             className="px-6 sm:px-8 mt-8 py-4 inline-flex justify-center items-center gap-2 w-full sm:w-auto cursor-pointer transition-colors"
             style={{ backgroundColor: primaryColor }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
             {showCtaIcon && (
               <div className="w-6 h-6 relative overflow-hidden">
@@ -155,10 +176,11 @@ export default function LayeredHero({
             >
               {cta?.text || "অর্ডার করুন (৩০% ছাড়ে)"}
             </div>
-          </a>
+          </Link>
         </div>
       </div>
 
+      {/* Right Section (Background Image) */}
       <div className="w-full lg:w-[40%] h-[380px] sm:h-[500px] lg:h-[645px] xl:h-full relative order-first lg:order-0">
         {mainImage && (
           <>
@@ -168,7 +190,9 @@ export default function LayeredHero({
               fill
               className="relative! object-cover w-full h-full"
               sizes="(max-width: 1024px) 100vw, 40vw"
+              loading="lazy"
             />
+            {/* Dark overlay */}
             <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
           </>
         )}
@@ -183,11 +207,13 @@ export default function LayeredHero({
                 alt={overlayImageAlt}
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-700"
+                loading="lazy"
               />
             </div>
           </div>
         </div>
       )}
+
     </section>
   );
 }

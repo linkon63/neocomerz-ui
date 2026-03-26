@@ -1,4 +1,8 @@
-import React from "react";
+import img1 from "./images/products/product1.webp";
+import img2 from "./images/products/product2.webp";
+import img3 from "./images/products/product3.webp";
+import img4 from "./images/products/product4.webp";
+
 
 export interface GalleryColProps {
   title?: string;
@@ -9,7 +13,12 @@ export interface GalleryColProps {
 export default function GalleryCol({
   title = "Our Product Gallery",
   description = "Check out our latest collection and high-quality product images.",
-  images = [],
+  images = [
+    { src: img1.src, alt: "Product 1" },
+    { src: img2.src, alt: "Product 2" },
+    { src: img3.src, alt: "Product 3" },
+    { src: img4.src, alt: "Product 4" },
+  ],
 }: GalleryColProps) {
   return (
     <section className="py-16 bg-white">

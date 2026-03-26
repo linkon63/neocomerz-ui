@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionHeaderProps } from '../types';
+import { SectionHeaderProps } from './types';
 
 export default function SectionHeader({
     title,

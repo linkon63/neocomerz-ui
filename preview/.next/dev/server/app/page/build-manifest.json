@@ -1,0 +1,22 @@
+{
+  "devFiles": [],
+  "ampDevFiles": [],
+  "polyfillFiles": [
+    "static/chunks/0r-5_next_dist_build_polyfills_polyfill-nomodule.js"
+  ],
+  "lowPriorityFiles": [],
+  "rootMainFiles": [
+    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_10m3_f_._.js",
+    "static/chunks/0r-5_next_dist_compiled_next-devtools_index_0~vi6ub.js",
+    "static/chunks/0r-5_next_dist_compiled_react-dom_02z3xro._.js",
+    "static/chunks/0r-5_next_dist_compiled_react-server-dom-turbopack_08aeaj8._.js",
+    "static/chunks/0r-5_next_dist_compiled_0s.d7xy._.js",
+    "static/chunks/0r-5_next_dist_client_0_fe.x1._.js",
+    "static/chunks/0r-5_next_dist_07gaepj._.js",
+    "static/chunks/0mee_@swc_helpers_cjs_0-eqbqk._.js",
+    "static/chunks/Linkon_neoComerz_builder-complete_neocomerz-ui_preview_0rqeker._.js",
+    "static/chunks/turbopack-Linkon_neoComerz_builder-complete_neocomerz-ui_preview_0s9giw5._.js"
+  ],
+  "pages": {},
+  "ampFirstPages": []
+}
