@@ -5,3 +5,11 @@ pnpm-lock.yaml
 .DS_Store
 .env.npmrc
 .npmrc
+
+/node_modules
+
+/preview/.next
+
+.next
+preview/.next
+
