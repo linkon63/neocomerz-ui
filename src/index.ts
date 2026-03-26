@@ -17,3 +17,6 @@ export { default as SectionHeader } from "./ui/SectionHeader";
 export { default as SizeChartUI } from "./ui/SizeChart";
 export { default as TestimonialsUI } from "./ui/Testimonials";
 
+// Helpers
+export { getLocalizedString, getSizesArray, getVariantDisplayValues } from "./ui/OrderFormHelpers";
+
