@@ -12,4 +12,6 @@ pnpm-lock.yaml
 
 .next
 preview/.next
+preview/node_modules
+preview/.next/dev
 
