@@ -1,8 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import OrderFormProductList from './OrderFormProductList';
 import OrderFormCartSummary from './OrderFormCartSummary';
 import OrderFormBillingFields from './OrderFormBillingFields';
 import { getLocalizedString, getSizesArray, getVariantDisplayValues } from './OrderFormHelpers';
+
+export type OrderFormGtmItem = {
+  item_id: string;
+  item_name: string;
+  item_category: string;
+  item_variant: string;
+  price: number;
+  currency: string;
+  quantity: number;
+};
+
+export type OrderFormGtmPayload = {
+  currency: string;
+  value: number;
+  shipping?: number;
+  transaction_id?: string;
+  items: OrderFormGtmItem[];
+};
 
 interface OrderFormUIProps {
   title?: string;
@@ -35,6 +53,12 @@ interface OrderFormUIProps {
   maxVariantsToShow?: number;
   maxProductsToShow?: number;
   allowedVariants?: { name: string }[];
+  channelId?: number;
+  currencyCode?: string;
+  onProductView?: (payload: OrderFormGtmPayload) => void;
+  onAddToCart?: (payload: OrderFormGtmPayload) => void;
+  onCheckoutBegin?: (payload: OrderFormGtmPayload) => void;
+  onPurchase?: (payload: OrderFormGtmPayload) => void;
 }
 
 export default function OrderFormUI({
@@ -59,7 +83,13 @@ export default function OrderFormUI({
   orderPlacementUrl,
   maxVariantsToShow,
   maxProductsToShow,
-  allowedVariants
+  allowedVariants,
+  channelId,
+  currencyCode = 'BDT',
+  onProductView,
+  onAddToCart,
+  onCheckoutBegin,
+  onPurchase,
 }: OrderFormUIProps) {
   const primaryColor = colors.primary || '#F36621';
   const textColor = colors.text || '#27272a';
@@ -157,6 +187,10 @@ export default function OrderFormUI({
     }
   }, [selectedVariantData, productData, selectedSize]);
 
+  const hasFiredViewItemRef = useRef(false);
+  const hasFiredCheckoutRef = useRef(false);
+  const hasMountedRef = useRef(false);
+
   const rawTitle = title || "Stock সীমিত – আজই অর্ডার করুন!";
   const rawProductName = productData?.name || productData?.title || productName || "প্রিমিয়াম Quality Panjabi";
   const displayTitle = getLocalizedString(rawTitle);
@@ -178,19 +212,129 @@ export default function OrderFormUI({
   const subtotal = productPriceNum * quantity;
   const total = subtotal + shippingCharge;
 
+  const buildGtmItem = (qty: number = quantity): OrderFormGtmItem => {
+    const categoryName =
+      typeof productData?.category === 'string'
+        ? productData.category
+        : (productData?.category?.name ?? '');
+    return {
+      item_id: String(effectiveProductId),
+      item_name: getLocalizedString(rawProductName),
+      item_category: getLocalizedString(categoryName),
+      item_variant: getLocalizedString(globalVariantValue || '') + (selectedSize ? ` / ${selectedSize}` : ''),
+      price: productPriceNum,
+      currency: currencyCode,
+      quantity: qty,
+    };
+  };
+
+  useEffect(() => {
+    if (!productData?.id || hasFiredViewItemRef.current) return;
+    hasFiredViewItemRef.current = true;
+    onProductView?.({
+      currency: currencyCode,
+      value: productPriceNum,
+      items: [buildGtmItem(1)],
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productData?.id]);
+
+  useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+      return;
+    }
+    if (!productData?.id) return;
+    onAddToCart?.({
+      currency: currencyCode,
+      value: subtotal,
+      items: [buildGtmItem()],
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity, selectedVariantId, selectedSize]);
+
+  const handleBeginCheckout = () => {
+    if (hasFiredCheckoutRef.current) return;
+    if (!productData?.id) return;
+    hasFiredCheckoutRef.current = true;
+    onCheckoutBegin?.({
+      currency: currencyCode,
+      value: total,
+      shipping: shippingCharge,
+      items: [buildGtmItem()],
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     const baseUrl = apiBaseUrl || process.env.NEXT_PUBLIC_API_BASE_URL;
     const submitUrl = orderPlacementUrl || (baseUrl ? `${baseUrl.replace(/\/$/, '')}/orders` : null);
 
+    const trimmedName = name.trim();
+    const firstSpaceIdx = trimmedName.indexOf(' ');
+    const firstName = firstSpaceIdx === -1 ? trimmedName : trimmedName.slice(0, firstSpaceIdx);
+    const lastName = firstSpaceIdx === -1 ? '' : trimmedName.slice(firstSpaceIdx + 1);
+
+    const purchasableId = selectedVariantId || effectiveProductId;
+
+    const sharedAddress = {
+      first_name: firstName,
+      last_name: lastName,
+      phone,
+      state: '',
+      city: '',
+      area: '',
+      postcode: '',
+      address,
+      landmark: '',
+    };
+
     const payload = {
-      product_id: effectiveProductId,
-      variant_id: selectedVariantId || undefined,
-      size: selectedSize || undefined,
-      name, phone, address, notes, quantity,
-      shipping_id: selectedShipping,
-      total_amount: total
+      channel_id: channelId ?? 2, // 2 = WEB; 1 = POS
+      amount_due: total,
+      amount_paid: 0,
+      amount_change: 0,
+      billing_address: { ...sharedAddress, type: 'billing' },
+      shipping_address: { ...sharedAddress, type: 'shipping' },
+      payment: {
+        intent: 'sale',
+        status: 'unpaid',
+        meta_data: [
+          {
+            provider: 'Cash on Delivery',
+            type: 'cash',
+            amount: String(total),
+            payment_information: notes || 'Cash on Delivery',
+            vouchers: [],
+          },
+        ],
+      },
+      purchasable: [
+        {
+          id: purchasableId,
+          quantity,
+          discount_should_apply: true,
+          order_quantity: quantity,
+          uom_id: 1,
+          uom: 'pcs',
+          order_uom_id: 1,
+          order_uom: 'pcs',
+          batch_id: null,
+        },
+      ],
+      meta_data: {
+        additional_amount_breakdown:
+          shippingCharge > 0
+            ? [
+                {
+                  key: 'additional_amount',
+                  title: selectedShippingOption?.label || 'Shipping Charge',
+                  amount: shippingCharge,
+                },
+              ]
+            : [],
+      },
     };
 
     if (submitUrl) {
@@ -199,7 +343,19 @@ export default function OrderFormUI({
         if (apiKey) headers["Authorization"] = `Bearer ${apiKey}`;
         const res = await fetch(submitUrl, { method: "POST", headers, body: JSON.stringify(payload) });
         if (!res.ok) throw new Error("API Submission failed");
-        
+
+        const json = await res.json().catch(() => null);
+        const transactionId =
+          json?.data?.id ?? json?.data?.order_number ?? json?.order?.id ?? json?.id ?? `ORDER_${Date.now()}`;
+
+        onPurchase?.({
+          transaction_id: String(transactionId),
+          currency: currencyCode,
+          value: total,
+          shipping: shippingCharge,
+          items: [buildGtmItem()],
+        });
+
         setIsSubmitting(false);
         alert('Order submitted successfully!');
         setName(''); setPhone(''); setAddress(''); setNotes(''); setQuantity(1);
@@ -263,7 +419,7 @@ export default function OrderFormUI({
             total={total}
           />
 
-          <OrderFormBillingFields 
+          <OrderFormBillingFields
             primaryColor={primaryColor}
             namePlaceholder={namePlaceholder}
             phonePlaceholder={phonePlaceholder}
@@ -280,6 +436,7 @@ export default function OrderFormUI({
             selectedShipping={selectedShipping}
             setSelectedShipping={setSelectedShipping}
             isSubmitting={isSubmitting}
+            onBeginCheckout={handleBeginCheckout}
           />
         </form>
       </div>
