@@ -22,6 +22,7 @@ interface OrderFormBillingFieldsProps {
   selectedShipping: string;
   setSelectedShipping: (id: string) => void;
   isSubmitting: boolean;
+  onBeginCheckout?: () => void;
 }
 
 export default function OrderFormBillingFields({
@@ -44,7 +45,8 @@ export default function OrderFormBillingFields({
   shippingOptions,
   selectedShipping,
   setSelectedShipping,
-  isSubmitting
+  isSubmitting,
+  onBeginCheckout
 }: OrderFormBillingFieldsProps) {
   return (
     <div className="flex-1 self-stretch p-4 lg:p-6 bg-neutral-100 flex flex-col justify-start items-start gap-6">
@@ -73,6 +75,7 @@ export default function OrderFormBillingFields({
             placeholder={namePlaceholder || "আপনার নাম"}
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onFocus={onBeginCheckout}
             className="mt-1 w-full p-3 bg-white rounded-lg border text-base lg:text-xl font-semibold text-black placeholder-neutral-400 outline-none focus:ring-2 transition-all duration-200 border-neutral-200 focus:ring-lime-500"
             required
           />
@@ -87,6 +90,7 @@ export default function OrderFormBillingFields({
             placeholder={phonePlaceholder || "+8801 XXX XXXXXX"}
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            onFocus={onBeginCheckout}
             className="mt-1 w-full p-3 bg-white rounded-lg border text-base lg:text-xl font-semibold text-black placeholder-neutral-400 outline-none focus:ring-2 transition-all duration-200 border-neutral-200 focus:ring-lime-500"
             required
           />
@@ -150,6 +154,7 @@ export default function OrderFormBillingFields({
             placeholder={addressPlaceholder || "আপনার ঠিকানা"}
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            onFocus={onBeginCheckout}
             className="mt-1 w-full p-3 bg-white rounded-lg border h-24 text-base lg:text-xl font-semibold text-black placeholder-neutral-400 outline-none focus:ring-2 transition-all duration-200 resize-none border-neutral-200 focus:ring-lime-500"
             required
           />
