@@ -1,5 +1,6 @@
 import React from 'react';
 import { BsWhatsapp } from 'react-icons/bs';
+import defaultChartImage from '../../images/panjabi-chart.png';
 
 interface SizeChartV0Props {
   title?: string;
@@ -56,8 +57,8 @@ export default function SizeChartV0({
             </table>
           </div>
           <div className="rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center p-6 min-h-[280px]">
-            {chartImage ? (
-              <img src={chartImage} alt={chartImageAlt || "Size chart"} className="max-w-full h-auto max-h-[360px] object-contain" />
+            {chartImage || defaultChartImage ? (
+              <img src={chartImage || defaultChartImage.src} alt={chartImageAlt || "Size chart"} className="max-w-full h-auto max-h-[360px] object-contain" />
             ) : (
               <p className="text-gray-400 text-sm text-center">Chart image placeholder</p>
             )}

@@ -8,10 +8,22 @@ import TestimonialsV3  from './Testimonials.v3';
 import TestimonialsV4  from './Testimonials.v4';
 import TestimonialsV5  from './Testimonials.v5';
 
+import review1 from '../../images/review-1.jpeg';
+import review2 from '../../images/review-2.jpeg';
+import review3 from '../../images/review-3.jpeg';
+import review4 from '../../images/review-2-alt.jpeg';
+
 export interface TestimonialImageItem {
   src: string;
   alt?: string;
 }
+
+const defaultImages: TestimonialImageItem[] = [
+  { src: review1.src, alt: 'Review 1' },
+  { src: review2.src, alt: 'Review 2' },
+  { src: review3.src, alt: 'Review 3' },
+  { src: review4.src, alt: 'Review 4' },
+];
 
 export interface TestimonialsUIProps {
   version?: 'default' | 'v1' | 'v2' | 'v3' | 'v4' | 'v5';
@@ -38,7 +50,7 @@ const versionMap = {
   v5: TestimonialsV5,
 };
 
-export default function TestimonialsUI({ version = 'default', ...rest }: TestimonialsUIProps) {
+export default function TestimonialsUI({ version = 'default', images = defaultImages, ...rest }: TestimonialsUIProps) {
   const Component = versionMap[version] ?? TestimonialsV0;
-  return <Component {...rest} />;
+  return <Component images={images} {...rest} />;
 }

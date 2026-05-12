@@ -48,6 +48,7 @@ export default function OrderForm({
     shippingOptions[0]?.id ?? ""
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOrderCompleted, setIsOrderCompleted] = useState(false);
 
   const [allProducts, setAllProducts] = useState<Record<string, unknown>[]>([]);
   const [isLoadingProduct, setIsLoadingProduct] = useState(false);
@@ -237,8 +238,8 @@ export default function OrderForm({
           body: JSON.stringify(payload),
         });
         if (!res.ok) throw new Error("API submission failed");
-        alert("Order submitted successfully!");
         setName(""); setPhone(""); setAddress(""); setNotes(""); setQuantity(1);
+        setIsOrderCompleted(true);
       } catch {
         alert("Failed to submit order. Please try again or contact support.");
       } finally {
@@ -247,11 +248,38 @@ export default function OrderForm({
     } else {
       setTimeout(() => {
         setIsSubmitting(false);
-        alert("Order submitted successfully! (Simulated)");
         setName(""); setPhone(""); setAddress(""); setNotes(""); setQuantity(1);
+        setIsOrderCompleted(true);
       }, 2000);
     }
   };
+
+  if (isOrderCompleted) {
+    return (
+      <section className="py-24" style={{ backgroundColor }}>
+        <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col justify-center items-center">
+          <div className="max-w-xl w-full bg-white p-8 md:p-12 rounded-2xl shadow-2xl text-center flex flex-col items-center gap-6">
+            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-green-500 mb-2">
+              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">অর্ডার সম্পন্ন হয়েছে!</h2>
+            <p className="text-lg text-gray-600">
+              আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে। আমাদের প্রতিনিধি খুব শীঘ্রই আপনার সাথে যোগাযোগ করবেন।
+            </p>
+            <button 
+              onClick={() => setIsOrderCompleted(false)}
+              className="mt-4 px-8 py-4 rounded-xl font-bold text-white text-lg transition-all hover:opacity-90 hover:scale-105 active:scale-95"
+              style={{ backgroundColor: primaryColor, boxShadow: `0 4px 14px 0 ${primaryColor}40` }}
+            >
+              আরও শপিং করুন
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24" style={{ backgroundColor }}>

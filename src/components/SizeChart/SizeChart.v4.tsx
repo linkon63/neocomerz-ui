@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsWhatsapp } from 'react-icons/bs';
 import { SizeChartUIProps } from './SizeChart';
+import defaultChartImage from '../../images/panjabi-chart.png';
 
 // v4 — Dark Premium: dark background, glowing accents
 export default function SizeChartV4({
@@ -47,11 +48,11 @@ export default function SizeChartV4({
 
         {/* Bottom */}
         <div className="grid lg:grid-cols-2 gap-6">
-          {chartImage && (
+          {chartImage || defaultChartImage ? (
             <div className="rounded-3xl border border-white/10 bg-white/5 p-8 flex items-center justify-center min-h-[200px]">
-              <img src={chartImage} alt={chartImageAlt || "Size chart"} className="max-h-[280px] object-contain" />
+              <img src={chartImage || defaultChartImage.src} alt={chartImageAlt || "Size chart"} className="max-h-[280px] object-contain" />
             </div>
-          )}
+          ) : null}
           <div className="rounded-3xl p-8 border border-white/10 flex flex-col justify-between gap-6" style={{ background: `linear-gradient(135deg, ${primary}22, ${primary}11)` }}>
             <p className="text-gray-300 text-base md:text-lg font-medium leading-relaxed">
               {returnPolicy || "সাইজে সমস্যা হলে ৩ দিনের মধ্যে রিটার্ন বা এক্সচেঞ্জ করুন।"}

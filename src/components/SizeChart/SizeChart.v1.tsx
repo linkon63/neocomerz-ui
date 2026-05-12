@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsWhatsapp } from 'react-icons/bs';
 import { SizeChartUIProps } from './SizeChart';
+import defaultChartImage from '../../images/panjabi-chart.png';
 
 // v1 — Card Grid: each measurement as a visual card with size columns
 export default function SizeChartV1({
@@ -55,11 +56,11 @@ export default function SizeChartV1({
 
         {/* Bottom row: chart image + policy */}
         <div className="grid lg:grid-cols-2 gap-6">
-          {chartImage && (
+          {chartImage || defaultChartImage ? (
             <div className="bg-white rounded-2xl border border-gray-100 p-6 flex items-center justify-center min-h-[200px]">
-              <img src={chartImage} alt={chartImageAlt || "Size chart"} className="max-h-[300px] object-contain" />
+              <img src={chartImage || defaultChartImage.src} alt={chartImageAlt || "Size chart"} className="max-h-[300px] object-contain" />
             </div>
-          )}
+          ) : null}
           <div className="rounded-2xl p-6 flex flex-col justify-between gap-4" style={{ backgroundColor: primary }}>
             <p className="text-white text-base md:text-lg font-semibold leading-relaxed">
               {returnPolicy || "সাইজে সমস্যা হলে ৩ দিনের মধ্যে রিটার্ন বা এক্সচেঞ্জ করুন।"}

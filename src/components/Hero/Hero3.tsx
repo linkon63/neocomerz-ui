@@ -1,5 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import logoDefault from '../../images/neoComerz-logo.svg';
+import productImg1 from '../../images/products/product1.webp';
+import productImg2 from '../../images/products/product2.webp';
 
 export interface Hero3Props {
   leftLeafImage?: string;
@@ -21,9 +24,9 @@ export interface Hero3Props {
 }
 
 export default function Hero3({
-  leftLeafImage = "/images/left-leap.png",
-  logoSrc = "/logo/logo.svg",
-  logoAlt = "Radi Natural Shop Logo",
+  leftLeafImage,
+  logoSrc = logoDefault.src,
+  logoAlt = "Logo",
   titleLine1 = "নওগাঁর ঐতিহ্যবাহী ফরমালিনমুক্ত",
   titleLine2 = "নাকফজলি আম",
   description = "নাক ফজলি আম বাংলাদেশের জনপ্রিয় একটি সুস্বাদু জাত, যা আকারে বড়, লম্বাটে ও হালকা বাঁকানো। পাকার পর এর শাঁস নরম, রসালো ও মিষ্টি, সাথে থাকে হালকা টক স্বাদের মিশ্রণ। আঁশ কম হওয়ায় খেতে খুবই মসৃণ লাগে।",
@@ -31,12 +34,12 @@ export default function Hero3({
   price = "মাত্র ২০০ টাকায়",
   ctaText = "অর্ডার করুন",
   ctaHref = "#",
-  phoneNumber = "01738552161",
-  centerImage = "/hero-images/hero-2mango.svg",
-  centerImageAlt = "Fresh Nakfazli Mangoes",
-  badgeImage = "/hero-images/truseted-base.svg",
-  badgeImageAlt = "100% Formalin Free",
-  rightLeafImage = "/hero-images/leap.png",
+  phoneNumber = "01712508063",
+  centerImage = productImg1.src,
+  centerImageAlt = "Product",
+  badgeImage,
+  badgeImageAlt = "Badge",
+  rightLeafImage,
 }: Hero3Props) {
   return (
     <section className="relative w-full max-w-[1920px] mx-auto min-h-[800px] flex flex-col bg-[#F6F6F6] overflow-hidden">

@@ -1,5 +1,7 @@
 import React from "react";
 import Image from "next/image";
+import heroBgDefault from '../../images/heroBg.jpg';
+import productImg1 from '../../images/products/product1.webp';
 
 export interface Hero4Props {
   leftLeafImage?: string;
@@ -18,19 +20,19 @@ export interface Hero4Props {
 }
 
 export default function Hero4({
-  leftLeafImage = "/hero-images/left-leap.png",
-  rightLeafImage = "/hero-images/dubble-leap.png",
+  leftLeafImage,
+  rightLeafImage,
   titleLine1 = "খাঁটি, রসালো ও",
   titleLine2 = "ফরমালিনমুক্ত ",
   titleLine3 = "আমের\nনিশ্চয়তা",
-  mangoBannerImage = "/hero-images/mango-banner.webp",
-  mangoCircleImage = "/hero-images/mango-circle.webp",
+  mangoBannerImage = heroBgDefault.src,
+  mangoCircleImage = productImg1.src,
   badgeTextLine1 = "100%",
   badgeTextLine2 = "ফরমালিনমুক্ত",
   description = "আমাদের বাগান থেকে সরাসরি সংগ্রহ করা টাটকা, রসালো ও কেমিক্যালমুক্ত দেশি আম এখন পাচ্ছেন অনলাইনে। প্রথম কামড়েই টের পাবেন খাঁটি দেশি আমের পার্থক্য। স্বাদের টান আপনাকে বারবার ফিরিয়ে আনবে",
   ctaText = "অর্ডার করুন",
   ctaHref = "#",
-  phoneNumber = "01738552161",
+  phoneNumber = "01712508063",
 }: Hero4Props) {
   return (
     <section className="relative w-full max-w-[1920px] mx-auto min-h-[1400px] bg-[#F8F9FA] overflow-hidden flex flex-col font-sans">

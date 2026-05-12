@@ -160,7 +160,7 @@ export default function BillingFields({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full px-5 py-3 lg:px-7 lg:py-3.5 rounded-t-xl inline-flex justify-center items-center gap-2 transition-all duration-300 hover:opacity-95 hover:shadow-xl active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-4"
+          className="w-full px-5 py-3 lg:px-7 lg:py-3.5 rounded-t-xl inline-flex justify-center items-center gap-2 cursor-pointer transition-all duration-300 hover:opacity-95 hover:shadow-xl active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-4"
           style={{ backgroundColor: primaryColor, boxShadow: `0 0 0 4px ${primaryColor}30` }}
         >
           <LuShoppingBag

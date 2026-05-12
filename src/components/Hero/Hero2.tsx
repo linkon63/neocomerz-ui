@@ -1,5 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import heroBgDefault from '../../images/heroBg.jpg';
+import logoDefault from '../../images/neoComerz-logo.svg';
+import productImgDefault from '../../images/products/product1.webp';
 
 export interface Hero2Props {
   backgroundImage?: string;
@@ -14,9 +17,9 @@ export interface Hero2Props {
 }
 
 export default function Hero2({
-  backgroundImage = "/hero-images/hero-mango.svg",
-  logoSrc = "/logo/logo.svg",
-  logoAlt = "Radi Natural Shop Logo",
+  backgroundImage = productImgDefault.src,
+  logoSrc = logoDefault.src,
+  logoAlt = "Logo",
   titlePart1 = "সম্পূর্ণ ফরমালিনমুক্ত নওগাঁর ",
   titlePart2 = "নাকফজলি",
   titlePart3 = " আমের মেলা ",

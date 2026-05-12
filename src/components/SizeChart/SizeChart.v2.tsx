@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsWhatsapp } from 'react-icons/bs';
 import { SizeChartUIProps } from './SizeChart';
+import defaultChartImage from '../../images/panjabi-chart.png';
 
 // v2 — Horizontal Scroll Strip with size selector highlight
 export default function SizeChartV2({
@@ -62,11 +63,11 @@ export default function SizeChartV2({
 
         {/* Bottom: image + policy side by side */}
         <div className="flex flex-col md:flex-row gap-6 items-stretch">
-          {chartImage && (
+          {chartImage || defaultChartImage ? (
             <div className="flex-1 bg-white rounded-3xl border border-gray-100 p-8 flex items-center justify-center">
-              <img src={chartImage} alt={chartImageAlt || "Size chart"} className="max-h-[280px] object-contain" />
+              <img src={chartImage || defaultChartImage.src} alt={chartImageAlt || "Size chart"} className="max-h-[280px] object-contain" />
             </div>
-          )}
+          ) : null}
           <div className="flex-1 rounded-3xl p-8 flex flex-col justify-between gap-6" style={{ background: `linear-gradient(135deg, ${primary}, ${primary}cc)` }}>
             <div>
               <p className="text-white/80 text-sm font-semibold uppercase tracking-widest mb-3">Return Policy</p>

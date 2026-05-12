@@ -5,6 +5,10 @@ import DesignAndFitV3 from './DesignAndFit.v3';
 import DesignAndFitV4 from './DesignAndFit.v4';
 import DesignAndFitV5 from './DesignAndFit.v5';
 
+import featureImg1 from '../../images/productFeature-1.jpg';
+import featureImg2 from '../../images/productFeature-2.webp';
+import featureImg3 from '../../images/productFeature-3.jpg';
+
 export interface DesignAndFitUIProps {
   version?: 'v1' | 'v2' | 'v3' | 'v4' | 'v5';
   title?: string;
@@ -30,6 +34,12 @@ export interface DesignAndFitUIProps {
   };
 }
 
+const defaultImageCards = [
+  { image: featureImg1.src, title: 'প্রিমিয়াম ডিজাইন', description: 'আধুনিক ডিজাইন যা আপনাকে করে তুলবে আকর্ষণীয়' },
+  { image: featureImg2.src, title: 'পারফেক্ট ফিটিং', description: 'বডি শেইপ অনুযায়ী দারুণ ফিটিং' },
+  { image: featureImg3.src, title: 'উন্নত কোয়ালিটি', description: 'দীর্ঘস্থায়ী ও আরামদায়ক ফেব্রিক' },
+];
+
 const versionMap = {
   v1: DesignAndFitV1,
   v2: DesignAndFitV2,
@@ -38,7 +48,7 @@ const versionMap = {
   v5: DesignAndFitV5,
 };
 
-export default function DesignAndFitUI({ version = 'v1', ...props }: DesignAndFitUIProps) {
+export default function DesignAndFitUI({ version = 'v1', imageCards = defaultImageCards, ...props }: DesignAndFitUIProps) {
   const Component = versionMap[version] ?? DesignAndFitV1;
-  return <Component {...props} />;
+  return <Component imageCards={imageCards} {...props} />;
 }

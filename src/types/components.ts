@@ -146,6 +146,28 @@ export type Hero4Props = {
   phoneNumber?: string;
 };
 
+export type CircleHeroProps = {
+  logoSrc?: string;
+  logoAlt?: string;
+  logoWidth?: number;
+  logoHeight?: number;
+  productImage?: string;
+  productImageAlt?: string;
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  originalPrice?: string;
+  discountPrice?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  trustBadges?: string[];
+  backgroundColor?: string;
+  primaryColor?: string;
+  textColor?: string;
+  ringColor?: string;
+};
+
 // ─── LayeredHero ─────────────────────────────────────────────────────────────
 
 export type LayeredHeroProps = {

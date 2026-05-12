@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { BsWhatsapp, BsChevronDown } from 'react-icons/bs';
 import { SizeChartUIProps } from './SizeChart';
+import defaultChartImage from '../../images/panjabi-chart.png';
 
 // v3 — Accordion style: click measurement to expand details
 export default function SizeChartV3({
@@ -58,11 +59,11 @@ export default function SizeChartV3({
 
           {/* Right: chart image + policy */}
           <div className="flex flex-col gap-6">
-            {chartImage && (
+            {chartImage || defaultChartImage ? (
               <div className="bg-white rounded-3xl border border-gray-100 p-8 flex items-center justify-center shadow-sm">
-                <img src={chartImage} alt={chartImageAlt || "Size chart"} className="max-h-[320px] object-contain" />
+                <img src={chartImage || defaultChartImage.src} alt={chartImageAlt || "Size chart"} className="max-h-[320px] object-contain" />
               </div>
-            )}
+            ) : null}
             <div className="rounded-3xl p-6 flex flex-col gap-4" style={{ backgroundColor: primary }}>
               <p className="text-white font-semibold leading-relaxed text-base">
                 {returnPolicy || "সাইজে সমস্যা হলে ৩ দিনের মধ্যে রিটার্ন বা এক্সচেঞ্জ করুন।"}

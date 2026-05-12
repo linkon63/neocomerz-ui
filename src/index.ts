@@ -81,6 +81,7 @@ export {
   Hero2,
   Hero3,
   Hero4,
+  CircleHero,
 } from "./components/Hero";
 
 export {
@@ -164,6 +165,7 @@ export type {
   Hero2Props,
   Hero3Props,
   Hero4Props,
+  CircleHeroProps,
   LayeredHeroProps,
   InlineHeroProps,
   FeatureItem,

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { BsWhatsapp } from 'react-icons/bs';
 import { SizeChartUIProps } from './SizeChart';
+import defaultChartImage from '../../images/panjabi-chart.png';
 
 // v5 — Size Selector: click a size to highlight all its measurements
 export default function SizeChartV5({
@@ -57,11 +58,11 @@ export default function SizeChartV5({
 
         {/* Bottom */}
         <div className="grid lg:grid-cols-2 gap-6">
-          {chartImage && (
+          {chartImage || defaultChartImage ? (
             <div className="bg-white rounded-3xl border-2 p-8 flex items-center justify-center" style={{ borderColor: `${primary}30` }}>
-              <img src={chartImage} alt={chartImageAlt || "Size chart"} className="max-h-[280px] object-contain" />
+              <img src={chartImage || defaultChartImage.src} alt={chartImageAlt || "Size chart"} className="max-h-[280px] object-contain" />
             </div>
-          )}
+          ) : null}
           <div className="rounded-3xl p-8 flex flex-col justify-between gap-6" style={{ background: `linear-gradient(135deg, ${primary}, ${primary}bb)` }}>
             <div>
               <p className="text-white/70 text-xs font-bold uppercase tracking-widest mb-3">Return & Exchange</p>

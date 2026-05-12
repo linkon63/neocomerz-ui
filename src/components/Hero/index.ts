@@ -11,3 +11,5 @@ export { default as Hero3 } from "./Hero3";
 export type { Hero3Props } from "./Hero3";
 export { default as Hero4 } from "./Hero4";
 export type { Hero4Props } from "./Hero4";
+export { default as CircleHero } from "./CircleHero";
+export type { CircleHeroProps } from "./CircleHero";
