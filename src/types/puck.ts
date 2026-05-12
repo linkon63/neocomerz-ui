@@ -1,23 +1,57 @@
 import React from "react";
 
+/**
+ * Shared prop types for all Puck component configs in the builder.
+ * Keep this file in sync with `puck/types/puck.ts` in the root project.
+ */
 export type PuckProps = {
-  Heading: { title: string; level: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'; color?: string; align?: 'left' | 'center' | 'right' };
-  Text: { content: string; color?: string; align?: 'left' | 'center' | 'right'; size?: string };
-  Button: { text: string; href: string; variant: 'default' | 'outline'; color?: string };
-  Container: { padding?: string; maxWidth?: string };
-  Columns: { columns: { children: React.ReactNode }[] };
+  Heading: {
+    title: string;
+    level: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+    color?: string;
+    align?: "left" | "center" | "right";
+  };
+  Text: {
+    content: string;
+    color?: string;
+    align?: "left" | "center" | "right";
+    size?: string;
+  };
+  Button: {
+    text: string;
+    href: string;
+    variant: "default" | "outline";
+    color?: string;
+  };
+  Container: {
+    padding?: string;
+    maxWidth?: string;
+  };
+  Columns: {
+    columns: { children: React.ReactNode }[];
+  };
   Hero: {
     backgroundImage?: string;
-    logoSrc?: string; logoAlt?: string; logoWidth?: number; logoHeight?: number;
-    title?: string; titleSize?: string;
-    subtitle?: string; subtitleSize?: string;
-    discountTag?: string; discountTagSize?: string;
-    ctaText?: string; ctaHref?: string;
-    secondaryCtaText?: string; secondaryCtaHref?: string;
-    overlayOpacity?: number; overlayColor?: string;
-    textAlignment?: 'left' | 'center' | 'right';
-    contentAlignment?: 'left' | 'center' | 'right';
-    primaryColor?: string; textColor?: string;
+    logoSrc?: string;
+    logoAlt?: string;
+    logoWidth?: number;
+    logoHeight?: number;
+    title?: string;
+    titleSize?: string;
+    subtitle?: string;
+    subtitleSize?: string;
+    discountTag?: string;
+    discountTagSize?: string;
+    ctaText?: string;
+    ctaHref?: string;
+    secondaryCtaText?: string;
+    secondaryCtaHref?: string;
+    overlayOpacity?: number;
+    overlayColor?: string;
+    textAlignment?: "left" | "center" | "right";
+    contentAlignment?: "left" | "center" | "right";
+    primaryColor?: string;
+    textColor?: string;
   };
   LayeredHero: {
     mainImage?: string;
@@ -26,7 +60,10 @@ export type PuckProps = {
     overlayImageAlt?: string;
     shadowImage?: string;
     shadowImageAlt?: string;
-    logoSrc?: string; logoAlt?: string; logoWidth?: number; logoHeight?: number;
+    logoSrc?: string;
+    logoAlt?: string;
+    logoWidth?: number;
+    logoHeight?: number;
     watermarkText?: string;
     titlePrimary?: string;
     titleSecondary?: string;
@@ -35,7 +72,8 @@ export type PuckProps = {
     originalPrice?: string;
     discountPrice?: string;
     priceSuffix?: string;
-    ctaText?: string; ctaHref?: string;
+    ctaText?: string;
+    ctaHref?: string;
     showWatermark?: boolean;
     showShadow?: boolean;
     showPolaroid?: boolean;
@@ -76,6 +114,7 @@ export type PuckProps = {
     images?: { src: string; alt?: string }[];
   };
   Features: {
+    version?: "v1" | "v2" | "v3" | "v4" | "v5";
     title?: string;
     description?: string;
     features?: { text: string }[];
@@ -89,12 +128,13 @@ export type PuckProps = {
     whatsappNumber?: string;
   };
   DesignAndFit: {
+    version?: "v1" | "v2" | "v3" | "v4" | "v5";
     title?: string;
     subtitle?: string;
-    imageCards?: { 
-      image?: string; 
-      title?: string; 
-      description?: string; 
+    imageCards?: {
+      image?: string;
+      title?: string;
+      description?: string;
       alt?: string;
     }[];
     detailCards?: {
@@ -106,6 +146,30 @@ export type PuckProps = {
     primaryColor?: string;
     textColor?: string;
     backgroundColor?: string;
+  };
+  Quality: {
+    version?: "v1" | "v2" | "v3" | "v4" | "v5";
+    title?: string;
+    subtitle?: string;
+    imageCards?: {
+      image?: string;
+      title?: string;
+      description?: string;
+      alt?: string;
+    }[];
+    detailCards?: {
+      title?: string;
+      items?: { text?: string }[];
+    }[];
+    ctaButton?: {
+      text?: string;
+      href?: string;
+    };
+    colors?: {
+      primary?: string;
+      text?: string;
+      background?: string;
+    };
   };
   SizeChart: {
     title?: string;
@@ -129,11 +193,14 @@ export type PuckProps = {
     backgroundColor?: string;
   };
   OrderForm: {
-    API_SECTION?: any;
-    PRODUCT_SECTION?: any;
-    UI_SECTION?: any;
+    /** Builder-only sentinel fields for UI section dividers – not rendered by the UI component. */
+    API_SECTION?: unknown;
+    apiBaseUrlInfo?: unknown;
+    PRODUCT_SECTION?: unknown;
+    UI_SECTION?: unknown;
     apiBaseUrl?: string;
     productId?: string | number;
+    allowedVariants?: { name: string }[];
     title?: string;
     description?: string;
     submitButtonText?: string;
@@ -151,9 +218,34 @@ export type PuckProps = {
     addressPlaceholder?: string;
     notesPlaceholder?: string;
     cashOnDeliveryText?: string;
+    privacyPolicyUrl?: string;
     primaryColor?: string;
     textColor?: string;
     backgroundColor?: string;
+  };
+  Testimonials: {
+    title?: string;
+    description?: string;
+    images?: { src: string; alt?: string }[];
+    initialDisplayCount?: number;
+    loadMoreCount?: number;
+    loadMoreText?: string;
+    loadingText?: string;
+    primaryColor?: string;
+    textColor?: string;
+    backgroundColor?: string;
+  };
+  FAQ: {
+    heading?: string;
+    descriptionPart1?: string;
+    descriptionPart2?: string;
+    descriptionPart3?: string;
+    contactLabel?: string;
+    contactNumber?: string;
+    faqs?: { question: string; answer: string }[];
+    primaryColor?: string;
+    backgroundColor?: string;
+    faqBackgroundColor?: string;
   };
 };
 

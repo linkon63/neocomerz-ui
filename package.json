@@ -1,6 +1,6 @@
 {
   "name": "neocomerz-storefront-ui",
-  "version": "1.0.3",
+  "version": "1.0.7",
   "description": "Premium UI components for NeoComerz storefronts",
   "author": "NeoComerz",
   "license": "MIT",
@@ -19,11 +19,19 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --minify --clean",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "dev": "next dev preview",
     "dev:lib": "tsup src/index.ts --format cjs,esm --watch --dts",
     "lint": "eslint src"
