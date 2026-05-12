@@ -3,8 +3,8 @@ dist/
 .next/
 
 # Preview app build cache (never commit generated files)
-preview/.next/
-/preview/.next/
+# preview/.next/
+# /preview/.next/
 
 # Dependencies
 node_modules/
