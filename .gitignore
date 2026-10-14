@@ -1,8 +1,25 @@
-dist
-node_modules
+# Build output
+dist/
+.next/
+
+# Preview app build cache (never commit generated files)
+preview/.next/
+/preview/.next/
+preview
+# Dependencies
+node_modules/
+/node_modules/
+
+# Lockfiles (managed at workspace root)
 package-lock.json
 pnpm-lock.yaml
+
+# OS / editor artifacts
 .DS_Store
+.env.local
+.env.*.local
+
+# Auth / registry secrets
 .env.npmrc
 .npmrc
 
