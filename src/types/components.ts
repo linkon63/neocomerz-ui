@@ -453,10 +453,27 @@ export type OrderFormProps = {
   maxProductsToShow?: number;
   channelId?: number;
   currencyCode?: string;
+  confirmationBrandName?: string;
+  confirmationSettings?: OrderConfirmationSettings;
+  continueShoppingText?: string;
+  viewMoreHref?: string;
+  viewMoreText?: string;
   onProductView?: (payload: OrderFormGtmPayload) => void;
   onAddToCart?: (payload: OrderFormGtmPayload) => void;
   onCheckoutBegin?: (payload: OrderFormGtmPayload) => void;
   onPurchase?: (payload: OrderFormGtmPayload) => void;
+  onOrderSuccess?: (order: OrderFormSuccess) => void;
+};
+
+export type OrderFormSuccess = {
+  orderId: string;
+  orderNumber: string;
+  createdAt: string;
+  customer: { name: string; phone: string; addressLine: string };
+  items: Array<{ id: string; name: string; price: number; quantity: number; imageUrl: string }>;
+  subtotal: number;
+  delivery: number;
+  total: number;
 };
 
 export type OrderFormBillingFieldsProps = {
@@ -514,4 +531,86 @@ export type OrderFormProductListProps = {
   displayProductPrice: string;
   displayProductImage?: string;
   maxVariantsToShow?: number;
+};
+
+export type OrderConfirmationItem = {
+  id: string | number;
+  name: string;
+  quantity: number;
+  price: number;
+  imageUrl?: string;
+};
+
+export type OrderConfirmationAddress = {
+  name?: string;
+  phone?: string;
+  addressLine?: string;
+  area?: string;
+  district?: string;
+  division?: string;
+  postcode?: string;
+  country?: string;
+};
+
+export type OrderConfirmationVersion = "v1" | "v2" | "v3";
+
+export type OrderConfirmationSettings = {
+  version?: OrderConfirmationVersion;
+  title?: string;
+  message?: string;
+  confirmedLabel?: string;
+  orderNumberLabel?: string;
+  placedOnLabel?: string;
+  customerInformationLabel?: string;
+  paymentLabel?: string;
+  amountDueLabel?: string;
+  paymentStatusLabel?: string;
+  orderDetailsLabel?: string;
+  quantityLabel?: string;
+  subtotalLabel?: string;
+  deliveryLabel?: string;
+  totalLabel?: string;
+  noItemsLabel?: string;
+  missingNameLabel?: string;
+  missingPhoneLabel?: string;
+  missingAddressLabel?: string;
+  printLabel?: string;
+  continueShoppingLabel?: string;
+  viewMoreLabel?: string;
+  brandName?: string;
+  logoSrc?: string;
+  viewMoreHref?: string;
+  primaryColor?: string;
+  backgroundColor?: string;
+  textColor?: string;
+};
+
+export type OrderConfirmationProps = {
+  version?: OrderConfirmationVersion;
+  settings?: OrderConfirmationSettings;
+  portalContainer?: HTMLElement;
+  preview?: boolean;
+  isOpen: boolean;
+  onClose: () => void;
+  orderId?: string;
+  orderNumber?: string;
+  createdAt?: string;
+  address?: OrderConfirmationAddress;
+  items?: OrderConfirmationItem[];
+  subtotal?: number;
+  delivery?: number;
+  total?: number;
+  currencySymbol?: string;
+  paymentMethod?: string;
+  paymentStatus?: string;
+  viewMoreHref?: string;
+  continueShoppingText?: string;
+  viewMoreText?: string;
+  printText?: string;
+  onPrint?: () => void;
+  printAreaId?: string;
+  logoSrc?: string;
+  brandName?: string;
+  colors?: ColorTheme;
+  className?: string;
 };

@@ -106,6 +106,8 @@ export {
 
 export { default as OrderForm } from "./components/OrderForm";
 
+export { default as OrderConfirmation } from "./components/OrderConfirmation";
+
 export {
   default as Quality,
   QualityV1,
@@ -186,11 +188,17 @@ export type {
   ShippingOption,
   AllowedVariant,
   OrderFormProps,
+  OrderFormSuccess,
   OrderFormGtmItem,
   OrderFormGtmPayload,
   OrderFormBillingFieldsProps,
   OrderFormCartSummaryProps,
   OrderFormProductListProps,
+  OrderConfirmationItem,
+  OrderConfirmationAddress,
+  OrderConfirmationProps,
+  OrderConfirmationSettings,
+  OrderConfirmationVersion,
   // Puck builder types
   PuckProps,
   RootProps,

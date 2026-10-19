@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import type { OrderFormProps } from "../../types/components";
+import type { OrderFormProps, OrderFormSuccess } from "../../types/components";
+import OrderConfirmation from "../OrderConfirmation";
 import ProductList from "./ProductList";
 import CartSummary from "./CartSummary";
 import BillingFields from "./BillingFields";
@@ -42,6 +43,12 @@ export default function OrderForm({
   onAddToCart,
   onCheckoutBegin,
   onPurchase,
+  onOrderSuccess,
+  confirmationBrandName,
+  confirmationSettings,
+  continueShoppingText,
+  viewMoreHref,
+  viewMoreText,
 }: OrderFormProps) {
   const primaryColor = primaryColorProp ?? colors.primary ?? "#F36621";
   const textColor = textColorProp ?? colors.text ?? "#27272a";
@@ -56,7 +63,8 @@ export default function OrderForm({
     shippingOptions[0]?.id ?? ""
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isOrderCompleted, setIsOrderCompleted] = useState(false);
+  const [isOrderConfirmationOpen, setIsOrderConfirmationOpen] = useState(false);
+  const [confirmationOrder, setConfirmationOrder] = useState<OrderFormSuccess | null>(null);
 
   const [allProducts, setAllProducts] = useState<Record<string, unknown>[]>([]);
   const [isLoadingProduct, setIsLoadingProduct] = useState(false);
@@ -369,6 +377,23 @@ export default function OrderForm({
       },
     };
 
+    const createSuccessOrder = (orderId: string, orderNumber = ""): OrderFormSuccess => ({
+      orderId,
+      orderNumber: orderNumber || orderId,
+      createdAt: new Date().toISOString(),
+      customer: { name: trimmedName, phone, addressLine: address },
+      items: [{
+        id: String(effectiveProductId),
+        name: getLocalizedString(rawProductName) || productName || "Product",
+        price: productPriceNum,
+        quantity,
+        imageUrl: displayProductImage || productImage || "",
+      }],
+      subtotal,
+      delivery: shippingCharge,
+      total,
+    });
+
     if (submitUrl) {
       try {
         const headers: Record<string, string> = {
@@ -381,7 +406,10 @@ export default function OrderForm({
           headers,
           body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error("API submission failed");
+        if (!res.ok) {
+          alert("Failed to submit order. Please try again or contact support.");
+          return;
+        }
         const response = (await res.json().catch(() => null)) as Record<
           string,
           unknown
@@ -398,6 +426,12 @@ export default function OrderForm({
           responseOrder?.["id"] ??
           response?.["id"] ??
           `ORDER_${Date.now()}`;
+        const successOrder: OrderFormSuccess = createSuccessOrder(
+          String(responseData?.["id"] ?? responseOrder?.["id"] ?? response?.["id"] ?? transactionId),
+          String(responseData?.["order_number"] ?? responseOrder?.["order_number"] ?? ""),
+        );
+        setConfirmationOrder(successOrder);
+        onOrderSuccess?.(successOrder);
 
         onPurchase?.({
           transaction_id: String(transactionId),
@@ -407,49 +441,20 @@ export default function OrderForm({
           items: [buildGtmItem()],
         });
         setName(""); setPhone(""); setAddress(""); setNotes(""); setQuantity(1);
-        setIsOrderCompleted(true);
+        setIsOrderConfirmationOpen(true);
       } catch {
         alert("Failed to submit order. Please try again or contact support.");
       } finally {
         setIsSubmitting(false);
       }
     } else {
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setName(""); setPhone(""); setAddress(""); setNotes(""); setQuantity(1);
-        setIsOrderCompleted(true);
-      }, 2000);
+      alert("Order submission is not configured. Please contact support.");
+      setIsSubmitting(false);
     }
   };
 
-  if (isOrderCompleted) {
-    return (
-      <section className="py-24" style={{ backgroundColor }}>
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col justify-center items-center">
-          <div className="max-w-xl w-full bg-white p-8 md:p-12 rounded-2xl shadow-2xl text-center flex flex-col items-center gap-6">
-            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-green-500 mb-2">
-              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">অর্ডার সম্পন্ন হয়েছে!</h2>
-            <p className="text-lg text-gray-600">
-              আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে। আমাদের প্রতিনিধি খুব শীঘ্রই আপনার সাথে যোগাযোগ করবেন।
-            </p>
-            <button 
-              onClick={() => setIsOrderCompleted(false)}
-              className="mt-4 px-8 py-4 rounded-xl font-bold text-white text-lg transition-all hover:opacity-90 hover:scale-105 active:scale-95"
-              style={{ backgroundColor: primaryColor, boxShadow: `0 4px 14px 0 ${primaryColor}40` }}
-            >
-              আরও শপিং করুন
-            </button>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
+    <>
     <section className="py-24" style={{ backgroundColor }}>
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col justify-start items-center gap-8 lg:gap-16">
         <div className="self-stretch flex flex-col justify-start items-center gap-4">
@@ -530,5 +535,31 @@ export default function OrderForm({
         </form>
       </div>
     </section>
+    <OrderConfirmation
+      isOpen={isOrderConfirmationOpen}
+      onClose={() => setIsOrderConfirmationOpen(false)}
+      orderId={confirmationOrder?.orderId}
+      orderNumber={confirmationOrder?.orderNumber}
+      createdAt={confirmationOrder?.createdAt}
+      address={{
+        name: confirmationOrder?.customer.name,
+        phone: confirmationOrder?.customer.phone,
+        addressLine: confirmationOrder?.customer.addressLine,
+      }}
+      items={confirmationOrder?.items}
+      subtotal={confirmationOrder?.subtotal}
+      delivery={confirmationOrder?.delivery}
+      total={confirmationOrder?.total}
+      currencySymbol={currencyCode}
+      brandName={confirmationSettings?.brandName ?? confirmationBrandName}
+      logoSrc={confirmationSettings?.logoSrc}
+      version={confirmationSettings?.version}
+      settings={confirmationSettings}
+      continueShoppingText={continueShoppingText}
+      viewMoreHref={viewMoreHref}
+      viewMoreText={viewMoreText}
+      colors={{ primary: primaryColor, text: textColor, background: "#f8fafc" }}
+    />
+    </>
   );
 }
