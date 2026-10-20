@@ -54,52 +54,21 @@ export const getVariantDisplayValues = (
   if (!variant || typeof variant !== "object") return { label: "", value: "" };
   const v = variant as Record<string, unknown>;
 
-  const isQuantityLike = (label: string): boolean => {
-    const n = String(label ?? "").toLowerCase().trim();
-    return n.includes("quantity") || n === "qty" || n.includes("unit qty");
-  };
-
   if (v["attribute_name"] && v["attribute_value"]) {
-    const attrLabel = getLocalizedString(v["attribute_name"]);
     return {
-      label: isQuantityLike(attrLabel) ? "" : attrLabel,
+      label: getLocalizedString(v["attribute_name"]),
       value: getLocalizedString(v["attribute_value"]),
     };
   }
 
   if (v["variant_name"] && v["variant_value"]) {
-    const varLabel = getLocalizedString(v["variant_name"]);
     return {
-      label: isQuantityLike(varLabel) ? "" : varLabel,
+      label: getLocalizedString(v["variant_name"]),
       value: getLocalizedString(v["variant_value"]),
     };
   }
 
-  const ignoredKeys = new Set([
-    "id", "price", "product_id", "created_at", "updated_at", "deleted_at",
-    "image", "thumbnail", "thumbnail_url", "sku", "stock",
-    "quantity", "qty", "unit_quantity", "unit_qty", "stock_quantity", "available_quantity",
-    "sizes", "name", "title", "description",
-    "current_pricing", "attributes", "variants", "status", "is_active", "type",
-  ]);
-
-  for (const key of Object.keys(v)) {
-    const val = v[key];
-    if (
-      !ignoredKeys.has(key) &&
-      val !== null &&
-      val !== undefined &&
-      typeof val !== "object" &&
-      val !== ""
-    ) {
-      const displayLabel =
-        key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, " ");
-      if (isQuantityLike(displayLabel)) continue;
-      return { label: displayLabel, value: String(val) };
-    }
-  }
-
-  const fallback = v["name"] || v["title"] || v["sku"] || "";
+  const fallback = v["option_value"] ?? v["value"] ?? v["label"] ?? v["name"] ?? v["title"] ?? v["sku"] ?? "";
   const extracted =
     fallback && typeof fallback === "object"
       ? (fallback as Record<string, unknown>)["name"] ||
@@ -108,7 +77,14 @@ export const getVariantDisplayValues = (
         fallback
       : fallback;
 
-  return { label: "", value: getLocalizedString(extracted) };
+  if (getLocalizedString(extracted)) return { label: "", value: getLocalizedString(extracted) };
+
+  for (const key of ["color", "colour", "size", "option", "material", "style"]) {
+    const value = getLocalizedString(v[key]);
+    if (value) return { label: key.charAt(0).toUpperCase() + key.slice(1), value };
+  }
+
+  return { label: "", value: "" };
 };
 
 /**

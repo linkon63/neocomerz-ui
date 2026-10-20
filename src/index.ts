@@ -188,6 +188,7 @@ export type {
   ShippingOption,
   AllowedVariant,
   OrderFormProps,
+  OrderFormProductConfig,
   OrderFormSuccess,
   OrderFormGtmItem,
   OrderFormGtmPayload,

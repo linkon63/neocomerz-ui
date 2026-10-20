@@ -4,6 +4,8 @@ Premium React storefront sections for NeoComerz-powered ecommerce landing pages.
 
 ## Package
 
+For checkbox-based checkout of several products in one order, see [Multiple-product Order Form](docs/MULTI_PRODUCT_ORDER_FORM.md).
+
 ```bash
 npm install neocomerz-storefront-ui
 ```

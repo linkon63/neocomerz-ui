@@ -403,7 +403,17 @@ export type ShippingOption = {
   price?: number;
 };
 
-export type AllowedVariant = { name: string };
+export type AllowedVariant = { id?: string | number; name?: string };
+
+export type OrderFormProductConfig = {
+  productId: string | number;
+  allowedVariants?: AllowedVariant[];
+  maxVariantsToShow?: number;
+  productName?: string;
+  productImage?: string;
+  productImageAlt?: string;
+  productPrice?: string;
+};
 
 export type OrderFormGtmItem = {
   item_id: string;
@@ -424,6 +434,8 @@ export type OrderFormGtmPayload = {
 };
 
 export type OrderFormProps = {
+  productSelectionMode?: "single" | "multiple";
+  products?: OrderFormProductConfig[];
   title?: string;
   description?: string;
   submitButtonText?: string;
@@ -444,6 +456,8 @@ export type OrderFormProps = {
   textColor?: string;
   backgroundColor?: string;
   apiBaseUrl?: string;
+  /** Builder-only product proxy base. This is never required by a published page. */
+  productApiBaseUrl?: string;
   apiKey?: string;
   productId?: string | number;
   orderPlacementUrl?: string;
@@ -477,6 +491,8 @@ export type OrderFormSuccess = {
 };
 
 export type OrderFormBillingFieldsProps = {
+  submitDisabled?: boolean;
+  shippingGroupName?: string;
   primaryColor: string;
   namePlaceholder?: string;
   phonePlaceholder?: string;
